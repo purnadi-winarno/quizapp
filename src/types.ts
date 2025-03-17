@@ -1,5 +1,7 @@
 export type Language = 'id' | 'en';
 
+export type GameState = 'landing' | 'quiz' | 'result';
+
 export interface Question {
   id: number;
   image: string;

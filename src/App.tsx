@@ -2,14 +2,14 @@ import { useState } from 'react';
 import { LandingPage } from './components/LandingPage';
 import { QuizQuestion } from './components/QuizQuestion';
 import { QuizResult } from './components/QuizResult';
+import  Footer  from './components/Footer';
 import { questions } from './data/questions';
-import { QuizState } from './types';
-import Footer from './components/Footer';
+import { GameState, QuizState } from './types';
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
 
 // Separate component for the app content
 function AppContent() {
-  const [gameState, setGameState] = useState<'landing' | 'quiz' | 'result'>('landing');
+  const [gameState, setGameState] = useState<GameState>('landing');
   const [quizState, setQuizState] = useState<QuizState>({
     currentQuestionIndex: 0,
     score: 0,
@@ -41,7 +41,7 @@ function AppContent() {
     const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
     const isCorrect = answer === currentQuestion.correctAnswer[language];
 
-    setQuizState((prev: QuizState) => ({
+    setQuizState((prev) => ({
       ...prev,
       selectedAnswer: answer,
       isAnswered: true,
@@ -53,7 +53,7 @@ function AppContent() {
     if (quizState.currentQuestionIndex === quizState.questions.length - 1) {
       setGameState('result');
     } else {
-      setQuizState((prev: QuizState) => ({
+      setQuizState((prev) => ({
         ...prev,
         currentQuestionIndex: prev.currentQuestionIndex + 1,
         selectedAnswer: null,
@@ -91,12 +91,10 @@ function AppContent() {
 }
 
 // Main App component
-function App() {
+export default function App() {
   return (
     <LanguageProvider>
       <AppContent />
     </LanguageProvider>
   );
 }
-
-export default App;

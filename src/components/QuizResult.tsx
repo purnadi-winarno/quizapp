@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Confetti from 'react-confetti';
-import { Trophy, Star, Frown, Smile } from 'lucide-react';
+import { Trophy, Star, Smile } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../data/translations';
 
@@ -11,11 +10,20 @@ interface QuizResultProps {
   onRestart: () => void;
 }
 
-export const QuizResult: React.FC<QuizResultProps> = ({
-  score,
-  totalQuestions,
-  onRestart,
-}) => {
+const starVariants = {
+  initial: { scale: 0, rotate: 0 },
+  animate: (i: number) => ({
+    scale: [1, 1.2, 1],
+    rotate: [0, 360, 0],
+    transition: {
+      delay: i * 0.2,
+      duration: 2,
+      repeat: Infinity,
+    },
+  }),
+};
+
+export function QuizResult({ score, totalQuestions, onRestart }: QuizResultProps) {
   const { language } = useLanguage();
   const finalScore = Math.round((score / totalQuestions) * 100);
   
@@ -31,19 +39,6 @@ export const QuizResult: React.FC<QuizResultProps> = ({
     return translations[language].tryAgain;
   };
 
-  const starVariants = {
-    initial: { scale: 0, rotate: 0 },
-    animate: (i: number) => ({
-      scale: [1, 1.2, 1],
-      rotate: [0, 360, 0],
-      transition: {
-        delay: i * 0.2,
-        duration: 2,
-        repeat: Infinity,
-      },
-    }),
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-500 to-pink-500 flex items-center justify-center p-4">
       {finalScore >= 60 && <Confetti />}
@@ -53,6 +48,7 @@ export const QuizResult: React.FC<QuizResultProps> = ({
         animate={{ scale: 1, opacity: 1 }}
         className="bg-white rounded-xl p-8 max-w-md w-full text-center shadow-2xl relative overflow-hidden"
       >
+        {/* Background stars */}
         <div className="absolute top-0 left-0 w-full h-full">
           {[...Array(5)].map((_, i) => (
             <motion.div
@@ -72,6 +68,7 @@ export const QuizResult: React.FC<QuizResultProps> = ({
           ))}
         </div>
 
+        {/* Content */}
         <motion.div
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -134,4 +131,4 @@ export const QuizResult: React.FC<QuizResultProps> = ({
       </motion.div>
     </div>
   );
-};
+}
