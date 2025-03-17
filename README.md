@@ -129,6 +129,38 @@ I'm available for freelance projects and collaborations:
 - Focus on performance optimization
 - Commitment to accessibility
 
+### 👤 About Me
+
+I'm a seasoned Frontend Developer with over 7 years of experience specializing in React ecosystem technologies. Since 2019, I've been working with multinational companies, delivering high-quality web and mobile applications.
+
+#### 💼 Professional Experience
+- **7+ years** of expertise in React, React Native, Next.js, and TailwindCSS
+- Currently working with multinational companies since 2019
+- Developed and maintained various types of applications:
+  - E-commerce platforms and marketplaces
+  - Social media applications
+  - SaaS (Software as a Service) solutions
+  - Educational platforms
+  - AI-powered applications
+- Collaborated with international teams across different time zones (Japan, Hong Kong, Singapore, India, and Indonesia)
+- Adapted to diverse corporate cultures and development methodologies
+
+#### 🛠 Technical Expertise
+- **Web Development**: React.js, Next.js, TypeScript
+- **Mobile Development**: React Native
+- **Styling**: TailwindCSS, Styled Components
+- **State Management**: Redux, Context API, Zustand
+- **Testing**: Jest, React Testing Library
+- **CI/CD**: GitHub Actions, Jenkins
+- **Cloud Services**: AWS, Vercel, Firebase
+
+#### 🌟 Key Achievements
+- Successfully delivered 15+ production applications
+- Improved application performance by 40%
+- Reduced build times by 60%
+- Implemented efficient CI/CD pipelines
+- Mentored junior developers
+
 ## 📄 License
 
 MIT License - Feel free to use this project for learning or inspiration!
