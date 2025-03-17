@@ -2,7 +2,14 @@
 
 An engaging educational quiz application specifically designed for children, featuring rich animations, bilingual support, and interactive elements. Experience the app live at [https://quizapp-zeta-one.vercel.app/](https://quizapp-zeta-one.vercel.app/)
 
-![Quiz App Screenshot](screenshot.png)
+<div align="center">
+  <img src="/public/assets/images/landing_screenshot.png" alt="Quiz App Landing Page" width="600"/>
+  
+  <div style="display: flex; justify-content: center; gap: 20px; margin-top: 20px;">
+    <img src="/public/assets/images/quiz_screenshot.png" alt="Quiz in Action" width="290"/>
+    <img src="/public/assets/images/final_score_screenshot.png" alt="Quiz Results" width="290"/>
+  </div>
+</div>
 
 ## ✨ Interactive Features
 
@@ -80,18 +87,12 @@ To get started with this project:
 
 
 
-```bash
-VITE_APP_TITLE="Quiz App"
-# Add other environment variables as needed
-```
-
 ### Available Scripts
 
 - `npm run dev` - Starts the development server
 - `npm run build` - Builds the app for production
 - `npm run preview` - Preview the production build locally
 - `npm run lint` - Run ESLint to check code quality
-- `npm run test` - Run tests (if configured)
 
 ## 🚀 Performance Optimizations
 - Lazy loading of audio resources
@@ -103,11 +104,16 @@ VITE_APP_TITLE="Quiz App"
 ## 👨‍💻 About the Developer
 
 Hi! I'm Purnadi Winarno, a frontend developer passionate about creating engaging educational experiences. I specialize in:
-- Interactive web applications
+- Interactive web & mobile applications using React, Nextjs, or React Native.
 - Educational platforms
+- E-commerce platforms
+- Social media platforms
+- AI-powered applications
 - Multilingual implementations
 - Rich animations and transitions
-- Accessible user interfaces
+- Responsive Web Applications
+- Figma to code
+- and more...
 
 ## 📫 Contact & Hire Me
 
@@ -130,6 +136,6 @@ MIT License - Feel free to use this project for learning or inspiration!
 ---
 
 ### 🌟 Featured Projects
-Check out my other educational projects:
-- [QuranLearner](https://github.com/purnadi-winarno/QuranLearner) (In progress)
-- [AIEnglishTutor](https://github.com/purnadi-winarno/AIEnglishTutor) (In progress)
+Check out my other projects:
+- [QuranLearner](https://github.com/purnadi-winarno/QuranLearner) (Mobile App. In progress)
+- [AIEnglishTutor](https://github.com/purnadi-winarno/AIEnglishTutor) (Mobile App. In progress)
