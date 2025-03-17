@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Brain, Stars, Globe } from 'lucide-react';
+import { Brain, Globe } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../data/translations';
 
@@ -48,7 +48,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
         
         {/* Language Selection */}
         <div className="mb-8">
-          <h2 className="text-lg font-semibold text-gray-700 mb-4">
+          <h2 className="text-lg font-semibold text-white mb-4">
             {language === 'id' ? 'Pilih Bahasa' : 'Select Language'}
           </h2>
           <div className="flex justify-center gap-4">
