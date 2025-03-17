@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Volume2, Timer } from 'lucide-react';
 import { Question } from '../types';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../data/translations';
 
 interface QuizQuestionProps {
   question: Question;
@@ -25,6 +27,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
   const [questionId, setQuestionId] = useState<number>(question.id);
   const [startTime, setStartTime] = useState<number>(Date.now());
   const [currentProgress, setCurrentProgress] = useState<number>(100);
+  const { language } = useLanguage();
 
   // Sound effects
   const playSound = (correct: boolean) => {
@@ -45,15 +48,15 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
 
   // Read question aloud
   const readQuestion = () => {
-    const speech = new SpeechSynthesisUtterance(question.question);
-    speech.lang = 'id-ID';
+    const speech = new SpeechSynthesisUtterance(question.question[language]);
+    speech.lang = language === 'id' ? 'id-ID' : 'en-US';
     speech.rate = 0.8;
     window.speechSynthesis.speak(speech);
   };
 
   // Shuffle options when question changes
   useEffect(() => {
-    setShuffledOptions([...question.options].sort(() => Math.random() - 0.5));
+    setShuffledOptions([...question.options[language]].sort(() => Math.random() - 0.5));
     setTimeLeft(TIME_LIMIT);
     setQuestionId(question.id)
   }, [question]);
@@ -68,7 +71,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
       return () => clearInterval(timer);
     } else if (timeLeft === 0 && !isAnswered) {
       
-      handleAnswerClick(question.correctAnswer === question.options[0] ? question.options[1] : question.options[0]);
+      handleAnswerClick(question.correctAnswer[language] === question.options[language][0] ? question.options[language][1] : question.options[language][0]);
     }
   }, [timeLeft, isAnswered]);
 
@@ -117,7 +120,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
 
   const handleAnswerClick = (answer: string) => {
     if (!isAnswered && timeLeft > 0) {
-      playSound(answer === question.correctAnswer);
+      playSound(answer === question.correctAnswer[language]);
       onAnswerSelect(answer);
     }
     else{
@@ -136,7 +139,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
         <div className="mb-4">
           <div className="flex justify-between items-center mb-4 sm:mb-0">
             <div className="flex items-center gap-4">
-              <h2 className="text-2xl font-bold text-gray-800">{question.question}</h2>
+              <h2 className="text-2xl font-bold text-gray-800">{question.question[language]}</h2>
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
@@ -197,7 +200,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
               className={`p-4 rounded-lg text-lg font-semibold transition-colors
                 ${
                   (isAnswered || timeLeft === 0)
-                    ? option === question.correctAnswer
+                    ? option === question.correctAnswer[language]
                       ? 'bg-green-500 text-white'
                       : option === selectedAnswer
                       ? 'bg-red-500 text-white'
@@ -220,7 +223,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
               onClick={onNext}
               className="mt-6 w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
             >
-              Next Question
+              {translations[language].next}
             </motion.button>
           )}
         </AnimatePresence>

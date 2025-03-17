@@ -1,12 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Brain, Stars } from 'lucide-react';
+import { Brain, Stars, Globe } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../data/translations';
 
 interface LandingPageProps {
   onStart: () => void;
 }
 
 export const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
+  const { language, setLanguage } = useLanguage();
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-500 to-pink-500 flex items-center justify-center p-4 relative overflow-hidden">
       <motion.div
@@ -42,6 +46,37 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
           Let's learn and have fun together!
         </motion.p>
         
+        {/* Language Selection */}
+        <div className="mb-8">
+          <h2 className="text-lg font-semibold text-gray-700 mb-4">
+            {language === 'id' ? 'Pilih Bahasa' : 'Select Language'}
+          </h2>
+          <div className="flex justify-center gap-4">
+            <button
+              onClick={() => setLanguage('id')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg ${
+                language === 'id'
+                  ? 'bg-purple-600 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              <Globe size={20} />
+              Indonesia
+            </button>
+            <button
+              onClick={() => setLanguage('en')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg ${
+                language === 'en'
+                  ? 'bg-purple-600 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              <Globe size={20} />
+              English
+            </button>
+          </div>
+        </div>
+
         <motion.button
           initial={{ scale: 0 }}
           animate={{ 
@@ -64,7 +99,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
           onClick={onStart}
           className="bg-white text-purple-600 px-12 py-6 rounded-full text-2xl font-bold shadow-lg flex items-center gap-3 mx-auto"
         >
-          Start Quiz <Stars className="ml-2" />
+          {translations[language].start}
         </motion.button>
       </motion.div>
 

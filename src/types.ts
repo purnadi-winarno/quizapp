@@ -1,9 +1,11 @@
+export type Language = 'id' | 'en';
+
 export interface Question {
   id: number;
   image: string;
-  correctAnswer: string;
-  options: string[];
-  question: string;  // Added question text to be read
+  correctAnswer: Record<Language, string>;
+  options: Record<Language, string[]>;
+  question: Record<Language, string>;
 }
 
 export interface QuizState {

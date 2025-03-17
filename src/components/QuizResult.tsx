@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Confetti from 'react-confetti';
 import { Trophy, Star, Frown, Smile } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../data/translations';
 
 interface QuizResultProps {
   score: number;
@@ -14,18 +16,19 @@ export const QuizResult: React.FC<QuizResultProps> = ({
   totalQuestions,
   onRestart,
 }) => {
-  const percentage = (score / totalQuestions) * 100;
+  const { language } = useLanguage();
+  const finalScore = Math.round((score / totalQuestions) * 100);
   
   const getEmoticon = () => {
-    if (percentage >= 80) return <Trophy size={80} className="text-yellow-500" />;
-    if (percentage >= 50) return <Star size={80} className="text-green-500" />;
+    if (finalScore >= 80) return <Trophy size={80} className="text-yellow-500" />;
+    if (finalScore >= 50) return <Star size={80} className="text-green-500" />;
     return <Smile size={80} className="text-blue-500" />;
   };
 
   const getMessage = () => {
-    if (percentage >= 80) return "Hebat! Kamu Pintar Sekali! 🌟";
-    if (percentage >= 50) return "Bagus! Terus Belajar ya! 🎉";
-    return "Ayo Coba Lagi! Kamu Pasti Bisa! 💪";
+    if (finalScore >= 80) return translations[language].excellent;
+    if (finalScore >= 50) return translations[language].good;
+    return translations[language].tryAgain;
   };
 
   const starVariants = {
@@ -43,11 +46,11 @@ export const QuizResult: React.FC<QuizResultProps> = ({
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-500 to-pink-500 flex items-center justify-center p-4">
-      {percentage >= 50 && <Confetti recycle={false} numberOfPieces={200} />}
+      {finalScore >= 60 && <Confetti />}
       
       <motion.div
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
         className="bg-white rounded-xl p-8 max-w-md w-full text-center shadow-2xl relative overflow-hidden"
       >
         <div className="absolute top-0 left-0 w-full h-full">
@@ -95,7 +98,7 @@ export const QuizResult: React.FC<QuizResultProps> = ({
             animate={{ x: 0, opacity: 1 }}
             className="text-3xl font-bold mb-2"
           >
-            Quiz Selesai!
+            {translations[language].score}
           </motion.h2>
           
           <motion.p
@@ -112,9 +115,11 @@ export const QuizResult: React.FC<QuizResultProps> = ({
             className="mb-8"
           >
             <div className="text-6xl font-bold text-purple-600">
-              {score}/{totalQuestions}
+              {finalScore}
             </div>
-            <p className="text-gray-500 text-xl">Nilai Kamu</p>
+            <p className="text-gray-500 text-xl">
+              {score} / {totalQuestions} {translations[language].correct}
+            </p>
           </motion.div>
           
           <motion.button
@@ -123,7 +128,7 @@ export const QuizResult: React.FC<QuizResultProps> = ({
             onClick={onRestart}
             className="bg-purple-600 text-white px-8 py-3 rounded-full text-xl font-semibold hover:bg-purple-700 transition-colors"
           >
-            Main Lagi
+            {translations[language].restart}
           </motion.button>
         </motion.div>
       </motion.div>

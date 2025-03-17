@@ -5,8 +5,10 @@ import { QuizResult } from './components/QuizResult';
 import { questions } from './data/questions';
 import { QuizState } from './types';
 import Footer from './components/Footer';
+import { LanguageProvider, useLanguage } from './context/LanguageContext';
 
-function App() {
+// Separate component for the app content
+function AppContent() {
   const [gameState, setGameState] = useState<'landing' | 'quiz' | 'result'>('landing');
   const [quizState, setQuizState] = useState<QuizState>({
     currentQuestionIndex: 0,
@@ -15,6 +17,8 @@ function App() {
     selectedAnswer: null,
     isAnswered: false,
   });
+
+  const { language } = useLanguage();
 
   const shuffleQuestions = () => {
     return [...questions]
@@ -35,7 +39,7 @@ function App() {
 
   const handleAnswerSelect = (answer: string) => {
     const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
-    const isCorrect = answer === currentQuestion.correctAnswer;
+    const isCorrect = answer === currentQuestion.correctAnswer[language];
 
     setQuizState((prev: QuizState) => ({
       ...prev,
@@ -83,6 +87,15 @@ function App() {
       )}
       <Footer />
     </div>
+  );
+}
+
+// Main App component
+function App() {
+  return (
+    <LanguageProvider>
+      <AppContent />
+    </LanguageProvider>
   );
 }
 
