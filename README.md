@@ -3,11 +3,11 @@
 An engaging educational quiz application specifically designed for children, featuring rich animations, bilingual support, and interactive elements. Experience the app live at [https://quizapp-zeta-one.vercel.app/](https://quizapp-zeta-one.vercel.app/)
 
 <div align="center">
-  <img src="/public/assets/images/landing_screenshot.png" alt="Quiz App Landing Page" width="600"/>
+  <img src="public/assets/images/landing_screenshot.png" alt="Quiz App Landing Page" width="600"/>
   
   <div style="display: flex; justify-content: center; gap: 20px; margin-top: 20px;">
-    <img src="/public/assets/images/quiz_screenshot.png" alt="Quiz in Action" width="290"/>
-    <img src="/public/assets/images/final_score_screenshot.png" alt="Quiz Results" width="290"/>
+    <img src="public/assets/images/quiz_screenshot.png" alt="Quiz in Action" width="290"/>
+    <img src="public/assets/images/final_score_screenshot.png" alt="Quiz Results" width="290"/>
   </div>
 </div>
 
