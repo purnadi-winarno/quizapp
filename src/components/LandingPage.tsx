@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Brain, Globe } from 'lucide-react';
-import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../data/translations';
+import { useLanguage } from '../hooks/useLanguage';
 
 interface LandingPageProps {
   onStart: () => void;

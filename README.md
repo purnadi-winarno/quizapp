@@ -70,15 +70,28 @@ An engaging educational quiz application specifically designed for children, fea
   - Custom sound management
 
 ## 💻 Development
-bash
-Clone the repository
-git clone https://github.com/purnadi-winarno/quizapp.git
-Install dependencies
-npm install
-Run development server
-npm run dev
-Build for production
-npm run build
+
+To get started with this project:
+
+1. Make sure you have [Node.js](https://nodejs.org/) (v16 or higher) installed
+2. Clone and set up the project using the commands above
+3. Open [http://localhost:5173](http://localhost:5173) to view it in your browser
+4. The page will reload when you make changes
+
+
+
+```bash
+VITE_APP_TITLE="Quiz App"
+# Add other environment variables as needed
+```
+
+### Available Scripts
+
+- `npm run dev` - Starts the development server
+- `npm run build` - Builds the app for production
+- `npm run preview` - Preview the production build locally
+- `npm run lint` - Run ESLint to check code quality
+- `npm run test` - Run tests (if configured)
 
 ## 🚀 Performance Optimizations
 - Lazy loading of audio resources

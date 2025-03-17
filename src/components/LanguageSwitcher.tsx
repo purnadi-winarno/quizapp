@@ -1,5 +1,5 @@
 import { Globe } from 'lucide-react';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../hooks/useLanguage';
 
 export function LanguageSwitcher() {
   const { language, setLanguage } = useLanguage();

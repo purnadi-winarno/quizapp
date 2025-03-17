@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
 import Confetti from 'react-confetti';
 import { Trophy, Star, Smile } from 'lucide-react';
-import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../data/translations';
+import { useLanguage } from '../hooks/useLanguage';
+import { useEffect } from 'react';
+import { playResultSound } from '../utils/soundUtils';
 
 interface QuizResultProps {
   score: number;
@@ -38,6 +40,11 @@ export function QuizResult({ score, totalQuestions, onRestart }: QuizResultProps
     if (finalScore >= 50) return translations[language].good;
     return translations[language].tryAgain;
   };
+
+  useEffect(() => {
+    playResultSound(finalScore);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Empty dependency array since we want to play only once when component mounts
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-500 to-pink-500 flex items-center justify-center p-4">

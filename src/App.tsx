@@ -5,7 +5,8 @@ import { QuizResult } from './components/QuizResult';
 import  Footer  from './components/Footer';
 import { questions } from './data/questions';
 import { GameState, QuizState } from './types';
-import { LanguageProvider, useLanguage } from './context/LanguageContext';
+import { LanguageProvider } from './context/LanguageContext';
+import { useLanguage } from './hooks/useLanguage';
 
 // Separate component for the app content
 function AppContent() {

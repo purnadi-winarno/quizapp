@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Volume2, Timer } from 'lucide-react';
 import { Question } from '../types';
-import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../data/translations';
+import { playSound, playExpiredSound } from '../utils/soundUtils';
+import { useLanguage } from '../hooks/useLanguage';
 
 interface QuizQuestionProps {
   question: Question;
@@ -29,37 +30,30 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
   const [currentProgress, setCurrentProgress] = useState<number>(100);
   const { language } = useLanguage();
 
-  // Sound effects
-  const playSound = (correct: boolean) => {
-    const audio = new Audio(
-      correct
-        ? '/assets/audio/correct.mp3'
-        : '/assets/audio/incorrect.mp3'
-    );
-    audio.play();
-  };
-
-  const playExpiredSound = () => {
-    const audio = new Audio(
-      '/assets/audio/failed.mp3'
-    );
-    audio.play();
-  };
-
   // Read question aloud
-  const readQuestion = () => {
+  const readQuestion = useCallback(() => {
     const speech = new SpeechSynthesisUtterance(question.question[language]);
     speech.lang = language === 'id' ? 'id-ID' : 'en-US';
     speech.rate = 0.8;
     window.speechSynthesis.speak(speech);
-  };
+  }, [question.question, language]);
 
   // Shuffle options when question changes
   useEffect(() => {
     setShuffledOptions([...question.options[language]].sort(() => Math.random() - 0.5));
     setTimeLeft(TIME_LIMIT);
     setQuestionId(question.id)
-  }, [question]);
+  }, [question, language]);
+
+  const handleAnswerClick = useCallback((answer: string) => {
+    if (!isAnswered && timeLeft > 0) {
+      playSound(answer === question.correctAnswer[language]);
+      onAnswerSelect(answer);
+    }
+    else {
+      playExpiredSound();
+    }
+  }, [isAnswered, timeLeft, question.correctAnswer, language, onAnswerSelect]);
 
   // Timer countdown
   useEffect(() => {
@@ -73,7 +67,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
       
       handleAnswerClick(question.correctAnswer[language] === question.options[language][0] ? question.options[language][1] : question.options[language][0]);
     }
-  }, [timeLeft, isAnswered]);
+  }, [timeLeft, isAnswered, handleAnswerClick, language, question.correctAnswer, question.options]);
 
   // Reset timeExpired when question changes
   useEffect(() => {
@@ -90,7 +84,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
       clearTimeout(timeoutId);
       window.speechSynthesis.cancel();
     };
-  }, [question]);
+  }, [question, readQuestion]);
 
   // Reset when question changes
   useEffect(() => {
@@ -118,15 +112,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
     return () => cancelAnimationFrame(animationId);
   }, [isAnswered, startTime]);
 
-  const handleAnswerClick = (answer: string) => {
-    if (!isAnswered && timeLeft > 0) {
-      playSound(answer === question.correctAnswer[language]);
-      onAnswerSelect(answer);
-    }
-    else{
-      playExpiredSound()
-    }
-  };
+  
 
 
   return (
